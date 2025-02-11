@@ -1,3 +1,9 @@
+/* Import Thai font */
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap');
+
+/* Add Font Awesome icons */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+
 .sec_sp {
     margin-bottom: calc(3rem + 5.128vw)
 }
@@ -68,8 +74,113 @@
 
 .service-section .service-category-title {
     padding-bottom: 4px;
+    font-family: 'Kanit', sans-serif;
 }
 
+.age-controls button {
+  background-color: #98FB98 !important; /* Light green */
+  border-color: #98FB98 !important;
+  color: #000 !important;
+  margin: 0 5px;
+  padding: 2px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.age-controls button:hover {
+  background-color: #90EE90 !important; /* Slightly darker green on hover */
+  border-color: #90EE90 !important;
+  color: #000 !important;
+}
+
+/* Apply Thai font */
+body, 
+.about-text, 
+.service-section,
+button,
+input,
+h1, h2, h3, h4, h5, h6,
+p {
+  font-family: 'Kanit', sans-serif !important;
+}
+
+/* Add these styles for edit mode */
+.form-control {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 0.5rem;
+}
+
+.form-control:focus {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
+  box-shadow: none;
+}
+
+.btn-success {
+  background: linear-gradient(45deg, #00C9FF, #92FE9D);
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 201, 255, 0.4);
+}
+
+.btn-primary {
+  background: linear-gradient(45deg, #7928CA, #FF0080);
+  border: none;
+}
+
+/* Add delete button style */
+.btn-danger {
+  background: linear-gradient(45deg, #FF416C, #FF4B2B);
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.btn-danger:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(255, 65, 108, 0.4);
+}
+
+.gap-2 {
+  gap: 0.5rem;
+}
+
+.add-section {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.add-section input {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.add-section input:focus {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
+  box-shadow: none;
+}
+
+.skill-item {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.btn-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  border-radius: 0.2rem;
+}
 
 /*! CSS Used keyframes */
 
@@ -97,4 +208,15 @@
         -webkit-transform: translateZ(0);
         transform: translateZ(0);
     }
+}
+@font-face {
+    font-family: 'Sarabun';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Sarabun Regular'), local('Sarabun-Regular'), url(https://fonts.gstatic.com/s/sarabun/v5/DtVhJx26TKEr37c9YHZJ.woff2) format('woff2');
+    unicode-range: U+0E00-0E7F; /* Thai */
+}
+
+body {
+    font-family: 'Sarabun', sans-serif;
 }

@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as emailjs from "emailjs-com";
-import "./style.css";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import { meta } from "../../content_option";
 import { Container, Row, Col, Alert } from "react-bootstrap";
-import { contactConfig } from "../../content_option";
+import { contactConfig, meta } from "../../content_option";
 
-export const ContactUs = () => {
+export const Contact = () => {
   const [formData, setFormdata] = useState({
     email: "",
     name: "",
@@ -16,6 +14,59 @@ export const ContactUs = () => {
     alertmessage: "",
     variant: "",
   });
+
+  // Load initial data from localStorage or use default values
+  const [contactInfo, setContactInfo] = useState(() => {
+    const savedInfo = localStorage.getItem('contactInfo');
+    return savedInfo ? JSON.parse(savedInfo) : {
+      email: contactConfig.YOUR_EMAIL,
+      phone: contactConfig.YOUR_FONE,
+      description: contactConfig.description
+    };
+  });
+
+  // Add new state for edit mode
+  const [isEditing, setIsEditing] = useState(false);
+
+  // Update handler with localStorage
+  const handleSave = () => {
+    // Save to localStorage
+    localStorage.setItem('contactInfo', JSON.stringify(contactInfo));
+    
+    // Update contactConfig
+    contactConfig.YOUR_EMAIL = contactInfo.email;
+    contactConfig.YOUR_FONE = contactInfo.phone;
+    contactConfig.description = contactInfo.description;
+    
+    setIsEditing(false);
+  };
+
+  const handleDelete = () => {
+    const confirmDelete = window.confirm('คุณต้องการลบข้อมูลทั้งหมดใช่หรือไม่?');
+    if (confirmDelete) {
+      const defaultInfo = {
+        email: '',
+        phone: '',
+        description: ''
+      };
+      setContactInfo(defaultInfo);
+      localStorage.setItem('contactInfo', JSON.stringify(defaultInfo));
+    }
+  };
+
+  // Use useEffect to load data when component mounts
+  useEffect(() => {
+    const savedInfo = localStorage.getItem('contactInfo');
+    if (savedInfo) {
+      const parsedInfo = JSON.parse(savedInfo);
+      setContactInfo(parsedInfo);
+      
+      // Update contactConfig with saved values
+      contactConfig.YOUR_EMAIL = parsedInfo.email;
+      contactConfig.YOUR_FONE = parsedInfo.phone;
+      contactConfig.description = parsedInfo.description;
+    }
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -37,22 +88,20 @@ export const ContactUs = () => {
       )
       .then(
         (result) => {
-          console.log(result.text);
           setFormdata({
             loading: false,
-            alertmessage: "SUCCESS! ,Thankyou for your messege",
+            alertmessage: "SUCCESS! Thank you for your message",
             variant: "success",
             show: true,
           });
         },
         (error) => {
-          console.log(error.text);
           setFormdata({
-            alertmessage: `Faild to send!,${error.text}`,
+            loading: false,
+            alertmessage: `Failed to send! ${error.text}`,
             variant: "danger",
             show: true,
           });
-          document.getElementsByClassName("co_alert")[0].scrollIntoView();
         }
       );
   };
@@ -72,16 +121,40 @@ export const ContactUs = () => {
           <title>{meta.title} | Contact</title>
           <meta name="description" content={meta.description} />
         </Helmet>
-        <Row className="mb-5 mt-3 pt-md-3">
+        <Row className="mb-5 mt-3">
           <Col lg="8">
             <h1 className="display-4 mb-4">Contact Me</h1>
             <hr className="t_border my-4 ml-0 text-left" />
+          </Col>
+          <Col lg="4" className="text-end d-flex gap-2 justify-content-end">
+            {isEditing ? (
+              <button 
+                className="btn btn-success" 
+                onClick={handleSave}
+              >
+                Save Changes
+              </button>
+            ) : (
+              <>
+                <button 
+                  className="btn btn-primary" 
+                  onClick={() => setIsEditing(true)}
+                >
+                  Edit Info
+                </button>
+                <button 
+                  className="btn btn-danger" 
+                  onClick={handleDelete}
+                >
+                  Delete All
+                </button>
+              </>
+            )}
           </Col>
         </Row>
         <Row className="sec_sp">
           <Col lg="12">
             <Alert
-              //show={formData.show}
               variant={formData.variant}
               className={`rounded-0 co_alert ${
                 formData.show ? "d-block" : "d-none"
@@ -94,22 +167,61 @@ export const ContactUs = () => {
           </Col>
           <Col lg="5" className="mb-5">
             <h3 className="color_sec py-4">Get in touch</h3>
-            <address>
-              <strong>Email:</strong>{" "}
-              <a href={`mailto:${contactConfig.YOUR_EMAIL}`}>
-                {contactConfig.YOUR_EMAIL}
-              </a>
-              <br />
-              <br />
-              {contactConfig.hasOwnProperty("YOUR_FONE") ? (
-                <p>
-                  <strong>Phone:</strong> {contactConfig.YOUR_FONE}
-                </p>
-              ) : (
-                ""
-              )}
-            </address>
-            <p>{contactConfig.description}</p>
+            {isEditing ? (
+              <div className="edit-form">
+                <div className="mb-3">
+                  <label className="form-label">Email:</label>
+                  <input
+                    type="email"
+                    className="form-control"
+                    value={contactInfo.email}
+                    onChange={(e) => setContactInfo({
+                      ...contactInfo,
+                      email: e.target.value
+                    })}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label">Phone:</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={contactInfo.phone}
+                    onChange={(e) => setContactInfo({
+                      ...contactInfo,
+                      phone: e.target.value
+                    })}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label">Description:</label>
+                  <textarea
+                    className="form-control"
+                    rows="3"
+                    value={contactInfo.description}
+                    onChange={(e) => setContactInfo({
+                      ...contactInfo,
+                      description: e.target.value
+                    })}
+                  />
+                </div>
+              </div>
+            ) : (
+              <address>
+                <strong>Email:</strong>{" "}
+                <a href={`mailto:${contactInfo.email}`}>
+                  {contactInfo.email}
+                </a>
+                <br />
+                <br />
+                {contactInfo.phone && (
+                  <p>
+                    <strong>Phone:</strong> {contactInfo.phone}
+                  </p>
+                )}
+                <p>{contactInfo.description}</p>
+              </address>
+            )}
           </Col>
           <Col lg="7" className="d-flex align-items-center">
             <form onSubmit={handleSubmit} className="contact__form w-100">
@@ -165,3 +277,5 @@ export const ContactUs = () => {
     </HelmetProvider>
   );
 };
+
+export default Contact;

@@ -1,0 +1,11 @@
+.age-controls {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.age-controls button {
+  padding: 5px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}

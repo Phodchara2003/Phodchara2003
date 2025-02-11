@@ -43,3 +43,61 @@ button.btn.ac_btn:hover {
         transform: translateX(100%);
     }
 }
+
+.edit-form label {
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.edit-form input,
+.edit-form textarea {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 0.5rem;
+}
+
+.edit-form input:focus,
+.edit-form textarea:focus {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
+  outline: none;
+}
+
+.gap-2 {
+  gap: 0.5rem;
+}
+
+.btn-danger {
+  background: linear-gradient(45deg, #FF416C, #FF4B2B);
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.btn-danger:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 65, 108, 0.4);
+}
+
+.btn-success {
+  background: linear-gradient(45deg, #00C9FF, #92FE9D);
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 201, 255, 0.4);
+}
+
+.btn-primary {
+  background: linear-gradient(45deg, #7928CA, #FF0080);
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(121, 40, 202, 0.4);
+}

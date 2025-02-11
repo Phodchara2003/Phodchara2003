@@ -17,16 +17,22 @@ const Headermain = () => {
     <>
       <header className="fixed-top site__header">
         <div className="d-flex align-items-center justify-content-between">
-          <Link  className="navbar-brand nav_ac" to="/">
-            {logotext}
-          </Link>
-          <div className="d-flex align-items-center">
-          <Themetoggle />
-          <button className="menu__button  nav_ac" onClick={handleToggle}>
-            {!isActive ? <VscClose /> : <VscGrabber />}
-          </button>
-          
-          </div>
+          <nav className="navbar navbar-expand-lg navbar-light">
+            <div className="container">
+              <Link className="navbar-brand nav_ac" to="/">
+                {logotext}
+              </Link>
+              <div className="d-flex align-items-center">
+                <Themetoggle />
+                <button className="menu__button nav_ac" onClick={handleToggle}>
+                  {!isActive ? <VscClose /> : <VscGrabber />}
+                </button>
+              </div>
+              <Link to="/contact" className="nav-link">
+                Contact
+              </Link>
+            </div>
+          </nav>
         </div>
 
         <div className={`site__navigation ${!isActive ? "menu__opend" : ""}`}>
@@ -35,16 +41,24 @@ const Headermain = () => {
               <div className="menu__container p-3">
                 <ul className="the_menu">
                   <li className="menu_item ">
-                  <Link  onClick={handleToggle} to="/" className="my-3">Home</Link>
+                    <Link onClick={handleToggle} to="/" className="my-3">
+                      Home
+                    </Link>
                   </li>
                   <li className="menu_item">
-                    <Link  onClick={handleToggle} to="/portfolio" className="my-3"> Portfolio</Link>
+                    <Link onClick={handleToggle} to="/portfolio" className="my-3">
+                      Portfolio
+                    </Link>
                   </li>
                   <li className="menu_item">
-                  <Link onClick={handleToggle} to="/about" className="my-3">About</Link>
+                    <Link onClick={handleToggle} to="/about" className="my-3">
+                      About
+                    </Link>
                   </li>
                   <li className="menu_item">
-                  <Link onClick={handleToggle} to="/contact" className="my-3"> Contact</Link>
+                    <Link onClick={handleToggle} to="/contact" className="my-3">
+                      Contact
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -52,11 +66,11 @@ const Headermain = () => {
           </div>
           <div className="menu_footer d-flex flex-column flex-md-row justify-content-between align-items-md-center position-absolute w-100 p-3">
             <div className="d-flex">
-            <a href={socialprofils.facebook}>Facebook</a>
-            <a href={socialprofils.github}>Github</a>
-            <a href={socialprofils.twitter}>Twitter</a>
+              <a href={socialprofils.facebook}>Facebook</a>
+              <a href={socialprofils.github}>Github</a>
+              <a href={socialprofils.instagram}>Instagram</a>
             </div>
-            <p className="copyright m-0">copyright __ {logotext}</p>
+            <p className="copyright m-0">{logotext}</p>
           </div>
         </div>
       </header>
@@ -64,7 +78,6 @@ const Headermain = () => {
       <div className="br-bottom"></div>
       <div className="br-left"></div>
       <div className="br-right"></div>
-      
     </>
   );
 };
